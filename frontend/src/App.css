@@ -1,0 +1,205 @@
+/* Reseteo y fuente (Añadimos un fondo oscuro general) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  /* Fondo azul profundo/nocturno inspirado en el acuario y el cielo */
+  background-color: #0b1320;
+  background-image: radial-gradient(circle at top right, #1a2a42, #0b1320);
+  color: #e0e6ed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Pantalla de Login */
+.login-container {
+  /* Estilo oscuro con borde naranja pálido (efecto luna) */
+  background: rgba(15, 23, 42, 0.8);
+  padding: 40px;
+  border-radius: 12px;
+  border-left: 4px solid #f0a060; 
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.login-container h2 {
+  margin-bottom: 10px;
+  color: #f0a060; /* Naranja pálido */
+  letter-spacing: 1px;
+}
+
+.login-container p {
+  color: #8b9bb4;
+}
+
+.login-container input {
+  padding: 12px;
+  margin-top: 20px;
+  width: 100%;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #fff;
+  border-radius: 5px;
+  outline: none;
+}
+
+.login-container input:focus {
+  border-color: #f0a060;
+}
+
+.login-container button, .chat-form button {
+  padding: 12px 20px;
+  margin-top: 15px;
+  background-color: #f0a060;
+  color: #0b1320;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.login-container button:hover, .chat-form button:hover {
+  background-color: #d9823b;
+  box-shadow: 0 0 10px rgba(240, 160, 96, 0.4);
+}
+
+/* Pantalla del Chat Principal */
+.chat-container {
+  width: 100%;
+  max-width: 500px;
+  height: 85vh;
+  background: #0f172a;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  border: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Cabecera del chat (Toque "ruidoso" y azul eléctrico) */
+.chat-header {
+  background: linear-gradient(90deg, #102040, #1d4ed8);
+  color: #f0a060;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #0b1320;
+}
+
+.chat-header h2 {
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.chat-header span {
+  color: #e0e6ed;
+  font-size: 0.9rem;
+}
+
+/* Área de mensajes */
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* Fondo crudo oscuro */
+  background-color: #0b1320;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.02) 25%,
+    transparent 25%,
+    transparent 75%,
+    rgba(255,255,255,0.02) 75%,
+    rgba(255,255,255,0.02)
+  );
+  background-size: 4px 4px; /* Efecto textura/ruido muy sutil */
+}
+
+.message {
+  max-width: 80%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  word-wrap: break-word;
+}
+
+/* Mensajes propios (Azul profundo con texto claro) */
+.my-message {
+  background-color: #1e3a8a; /* Azul intenso */
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+  box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.my-message strong {
+  color: #93c5fd;
+}
+
+/* Mensajes de otros (Gris oscuro/metálico) */
+.other-message {
+  background-color: #1e293b;
+  color: #e0e6ed;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+  border-left: 3px solid #f0a060; /* Toque naranja */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.other-message strong {
+  color: #f0a060;
+}
+
+/* Formulario de envío (Abajo) */
+.chat-form {
+  display: flex;
+  padding: 15px;
+  background-color: #0f172a;
+  border-top: 1px solid #1e293b;
+}
+
+.chat-form input {
+  flex: 1;
+  padding: 12px 15px;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: white;
+  border-radius: 25px;
+  margin-right: 10px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.chat-form input:focus {
+  border-color: #1d4ed8;
+}
+
+/* Estilos de la barra de desplazamiento (Scrollbar) para que no se vea fea en Windows */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b1320;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
