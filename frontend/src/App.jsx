@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
-import './App.css'; // Aquí cargaremos los estilos estéticos
+import './App.css';
 
-// 1. Nos conectamos al servidor Backend (el que está en el puerto 3000)
+// 1. Nos conectamos al servidor Backend
 const socket = io('https://chat-prueba-qe4a.onrender.com');
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
   // 2. Efecto para escuchar los mensajes que llegan del servidor
   useEffect(() => {
     socket.on('chat message', (data) => {
-      // Cuando llega un mensaje, lo agregamos a nuestra lista
+      // Cuando llega un mensaje, se agrega a la lista
       setMensajes((mensajesPrevios) => [...mensajesPrevios, data]);
     });
 
@@ -43,9 +43,9 @@ function App() {
   const enviarMensaje = (e) => {
     e.preventDefault();
     if (mensaje.trim() !== '') {
-      // Emitimos el mensaje hacia el backend
+      // Emitir el mensaje hacia el backend
       socket.emit('chat message', { usuario: nombre, texto: mensaje });
-      setMensaje(''); // Limpiamos la caja de texto
+      setMensaje(''); // Limpiar la caja de texto
     }
   };
 
@@ -102,6 +102,19 @@ function App() {
       </form>
     </div>
   );
+
+  useEffect(() => {
+  // Escucha cuando el servidor manda el historial
+  socket.on('historial', (mensajesGuardados) => {
+    // mensajesGuardados es un array. Lo ponemos en tu estado de mensajes
+    setMensajes(mensajesGuardados);
+  });
+
+  // Limpiar al desmontar
+  return () => {
+    socket.off('historial');
+  };
+}, []); // Los [] son importantes para que solo ocurra al cargar
 }
 
 export default App;
