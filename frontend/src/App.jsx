@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import './App.css';
 
-// 1. Nos conectamos al servidor Backend
+// 1. Conecta al servidor Backend
 const socket = io('https://chat-prueba-qe4a.onrender.com');
 
 function App() {
@@ -18,8 +18,13 @@ function App() {
       setMensajes((mensajesPrevios) => [...mensajesPrevios, data]);
     });
 
+    socket.on('historial', (mensajesGuardados) => {
+      setMensajes(mensajesGuardados); // Carga el historial al entrar
+    });
+
     return () => {
       socket.off('chat message');
+      socket.off('historial');
     };
   }, []);
 
