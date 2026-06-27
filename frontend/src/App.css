@@ -1,4 +1,3 @@
-/* Reseteo y fuente (Añadimos un fondo oscuro general) */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,7 +6,6 @@
 }
 
 body {
-  /* Fondo azul profundo/nocturno inspirado en el acuario y el cielo */
   background-color: #0b1320;
   background-image: radial-gradient(circle at top right, #1a2a42, #0b1320);
   color: #e0e6ed;
@@ -19,7 +17,6 @@ body {
 
 /* Pantalla de Login */
 .login-container {
-  /* Estilo oscuro con borde naranja pálido (efecto luna) */
   background: rgba(15, 23, 42, 0.8);
   padding: 40px;
   border-radius: 12px;
@@ -31,7 +28,7 @@ body {
 
 .login-container h2 {
   margin-bottom: 10px;
-  color: #f0a060; /* Naranja pálido */
+  color: #f0a060;
   letter-spacing: 1px;
 }
 
@@ -87,7 +84,7 @@ body {
   overflow: hidden;
 }
 
-/* Cabecera del chat (Toque "ruidoso" y azul eléctrico) */
+/* Cabecera del chat */
 .chat-header {
   background: linear-gradient(90deg, #102040, #1d4ed8);
   color: #f0a060;
@@ -126,7 +123,7 @@ body {
     rgba(255,255,255,0.02) 75%,
     rgba(255,255,255,0.02)
   );
-  background-size: 4px 4px; /* Efecto textura/ruido muy sutil */
+  background-size: 4px 4px;
 }
 
 .message {
@@ -138,7 +135,7 @@ body {
   word-wrap: break-word;
 }
 
-/* Mensajes propios (Azul profundo con texto claro) */
+/* Mensajes propios */
 .my-message {
   background-color: #1e3a8a; /* Azul intenso */
   color: #fff;
@@ -151,13 +148,13 @@ body {
   color: #93c5fd;
 }
 
-/* Mensajes de otros (Gris oscuro/metálico) */
+/* Mensajes de otros */
 .other-message {
   background-color: #1e293b;
   color: #e0e6ed;
   align-self: flex-start;
   border-bottom-left-radius: 0;
-  border-left: 3px solid #f0a060; /* Toque naranja */
+  border-left: 3px solid #f0a060;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
 
@@ -165,7 +162,7 @@ body {
   color: #f0a060;
 }
 
-/* Formulario de envío (Abajo) */
+/* Formulario de envío */
 .chat-form {
   display: flex;
   padding: 15px;
@@ -189,7 +186,7 @@ body {
   border-color: #1d4ed8;
 }
 
-/* Estilos de la barra de desplazamiento (Scrollbar) para que no se vea fea en Windows */
+/* Estilos de la barra de desplazamiento */
 ::-webkit-scrollbar {
   width: 8px;
 }
