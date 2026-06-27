@@ -2,41 +2,44 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
-// 1. Inicializamos la aplicación
+// --- CONFIGURACIÓN MONGO ---
+const MONGO_URL = 'mongodb+srv://pabloberberc_db_user:nkc4n85rSkn5nXRt@cluster0.de4qwxu.mongodb.net/?appName=Cluster0';
+
+mongoose.connect(MONGO_URL)
+  .then(() => console.log('📦 Base de datos conectada'))
+  .catch(err => console.error('Error BD:', err));
+
+const mensajeSchema = new mongoose.Schema({
+  usuario: String,
+  texto: String,
+  fecha: { type: Date, default: Date.now }
+});
+const Mensaje = mongoose.model('Mensaje', mensajeSchema);
+
 const app = express();
-app.use(cors()); // evita bloqueos de seguridad al conectar el frontend
-
-// 2. Creamos el servidor HTTP
+app.use(cors());
 const server = http.createServer(app);
 
-// 3. Configura los Sockets (El tiempo real)
 const io = new Server(server, {
-  cors: {
-    origin: "*", // Permite conexiones desde cualquier frontend
-    methods: ["GET", "POST"]
-  }
+  cors: { origin: "*", methods: ["GET", "POST"] }
 });
 
-// 4. Lógica de los Sockets (Qué pasa cuando alguien entra al chat)
-io.on('connection', (socket) => {
-  console.log(`🟢 Un usuario se ha conectado. ID: ${socket.id}`);
+io.on('connection', async (socket) => {
+  console.log(`🟢 Usuario conectado: ${socket.id}`);
 
-  // Cuando el servidor recibe un mensaje llamado 'chat message'
-  socket.on('chat message', (data) => {
-    console.log(`Mensaje recibido de ${data.usuario}: ${data.texto}`);
-    
-    // Inmediatamente se lo re-enviamos a TODOS los usuarios conectados
+  // Cargar historial al entrar
+  try {
+    const historial = await Mensaje.find().sort({ fecha: 1 }).limit(50);
+    socket.emit('historial', historial);
+  } catch (err) { console.log(err); }
+
+  socket.on('chat message', async (data) => {
+    const nuevoMensaje = new Mensaje({ usuario: data.usuario, texto: data.texto });
+    await nuevoMensaje.save(); // ¡Aquí se guarda!
     io.emit('chat message', data);
   });
-
-  // Cuando alguien cierra la pestaña
-  socket.on('disconnect', () => {
-    console.log('🔴 Un usuario se ha desconectado');
-  });
 });
 
-// 5. Enciende el motor en el puerto 3000
-server.listen(3000, () => {
-  console.log('🚀 Servidor backend corriendo perfectamente en http://localhost:3000');
-});
+server.listen(3000, () => console.log('🚀 Servidor arriba en puerto 3000'));
