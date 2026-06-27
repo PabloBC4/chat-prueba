@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 import './App.css'; // Aquí cargaremos los estilos estéticos
 
 // 1. Nos conectamos al servidor Backend (el que está en el puerto 3000)
-const socket = io('http://localhost:3000');
+const socket = io('https://chat-prueba-qe4a.onrender.com');
 
 function App() {
   // Estados para controlar la información
